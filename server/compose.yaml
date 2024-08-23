@@ -1,0 +1,27 @@
+name: teamcity
+
+services:
+  server:
+    image: jetbrains/teamcity-server:${TEAM_CITY_VERSION:-latest}
+    ports:
+      - 8080:8111
+    volumes:
+      - ./data/:/data/teamcity_server/datadir/:rw
+      - ./logs/:/opt/teamcity/logs/:rw
+    healthcheck:
+      test: curl -sI http://localhost:8111/ | head -1 | grep 'HTTP/1.1 401'
+      retries: 12
+      start_period: 60s
+      start_interval: 10s
+
+  agent:
+    image: jetbrains/teamcity-minimal-agent:${TEAM_CITY_VERSION:-latest}
+    environment:
+      AGENT_NAME: test-agent
+      AGENT_TOKEN:
+      SERVER_URL: http://server:8111/
+    volumes:
+      - ./agent/:/data/teamcity_agent/conf/:rw
+    depends_on:
+      server:
+        condition: service_healthy

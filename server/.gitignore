@@ -1,0 +1,4 @@
+agent/buildAgent.properties
+data/*
+logs/*
+!.gitkeep
