@@ -15,7 +15,7 @@ services:
       start_interval: 10s
 
   agent:
-    image: jetbrains/teamcity-minimal-agent:${TEAM_CITY_VERSION:-latest}
+    image: jetbrains/teamcity-agent:${TEAM_CITY_VERSION:-latest}
     environment:
       AGENT_NAME: test-agent
       AGENT_TOKEN:
