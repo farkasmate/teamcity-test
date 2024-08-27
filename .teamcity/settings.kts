@@ -61,12 +61,6 @@ object build : BuildType({
             id = "echo"
             scriptContent = """
                 echo "Hello World!"
-                echo "lorem ipsum"
-                echo "dolor sit amet"
-                sleep 5
-                echo "CI"
-                echo "CI"
-                echo "CI"
             """.trimIndent()
         }
 
@@ -75,18 +69,12 @@ object build : BuildType({
             file = "compose.yaml"
         }
 
-        script {
-            name = "docker_images_shell"
-            scriptContent = """
-                docker images
-            """.trimIndent()
-        }
-
         dockerCommand {
-            name = "docker_images"
+            name = "docker_run"
 
             commandType = other {
-                subCommand = "images"
+                subCommand = "run"
+                commandArgs = "--rm matefarkas/fortune:latest"
             }
         }
     }

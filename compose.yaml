@@ -1,5 +1,6 @@
 services:
   fortune:
+    image: matefarkas/fortune:latest
     build:
       context: .
       args:
