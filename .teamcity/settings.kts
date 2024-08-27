@@ -29,20 +29,18 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 version = "2024.03"
 
 project {
-    description = "manual test project"
+    description = "test project"
 
-    vcsRoot(TeamcityTest)
-    vcsRoot(HttpsGithubComFarkasmateTeamcityTestGitRefsHeadsMaster)
+    vcsRoot(teamcityTest)
 
-    buildType(manual_1)
-    buildType(FromUrl)
+    buildType(build)
 }
 
-object FromUrl : BuildType({
-    name = "from_url"
+object build : BuildType({
+    name = "build"
 
     vcs {
-        root(HttpsGithubComFarkasmateTeamcityTestGitRefsHeadsMaster)
+        root(teamcityTest)
     }
 
     triggers {
@@ -54,42 +52,22 @@ object FromUrl : BuildType({
         perfmon {
         }
     }
-})
-
-object manual_1 : BuildType({
-    name = "manual_1"
-
-    vcs {
-        root(TeamcityTest)
-    }
 
     steps {
         script {
-            name = "echo_test"
-            id = "echo_test"
+            name = "echo"
+            id = "echo"
             scriptContent = """echo "Hello World!""""
         }
     }
-
-    triggers {
-        vcs {
-        }
-    }
 })
 
-object HttpsGithubComFarkasmateTeamcityTestGitRefsHeadsMaster : GitVcsRoot({
-    name = "https://github.com/farkasmate/teamcity-test.git#refs/heads/master"
-    url = "https://github.com/farkasmate/teamcity-test.git"
-    branch = "refs/heads/master"
-    branchSpec = "refs/heads/*"
-    authMethod = password {
-    }
-    param("teamcitySshKey", "teamcity")
-})
-
-object TeamcityTest : GitVcsRoot({
-    name = "teamcity-test"
+object teamcityTest : GitVcsRoot({
+    name = "https://github.com/farkasmate/teamcity-test.git"
     url = "https://github.com/farkasmate/teamcity-test.git"
     branch = "master"
-    branchSpec = "ci"
+    branchSpec = "refs/heads/*"
+    authMethod = uploadedKey {
+        uploadedKey = "teamcity_test_ro"
+    }
 })
