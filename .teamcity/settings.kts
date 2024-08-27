@@ -1,5 +1,7 @@
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
+import jetbrains.buildServer.configs.kotlin.buildSteps.dockerCommand
+import jetbrains.buildServer.configs.kotlin.buildSteps.dockerCompose
 import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
 import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
@@ -59,9 +61,21 @@ object build : BuildType({
             id = "echo"
             scriptContent = """
                 echo "Hello World!"
-                echo "lorem ipsum"
-                echo "dolor sit amet"
             """.trimIndent()
+        }
+
+        dockerCompose {
+            name = "docker_compose"
+            file = "compose.yaml"
+        }
+
+        dockerCommand {
+            name = "docker_run"
+
+            commandType = other {
+                subCommand = "run"
+                commandArgs = "--rm matefarkas/fortune:latest"
+            }
         }
     }
 })

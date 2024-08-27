@@ -1,0 +1,8 @@
+services:
+  fortune:
+    image: matefarkas/fortune:latest
+    build:
+      context: .
+      args:
+        ALPINE_VERSION:
+    network_mode: default
