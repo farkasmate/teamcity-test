@@ -57,7 +57,11 @@ object build : BuildType({
         script {
             name = "echo"
             id = "echo"
-            scriptContent = """echo "Hello World!""""
+            scriptContent = """
+                echo "Hello World!"
+                echo "lorem ipsum"
+                echo "dolor sit amet"
+            """.trimIndent()
         }
     }
 })
