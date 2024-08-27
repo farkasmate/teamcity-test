@@ -61,6 +61,9 @@ object build : BuildType({
                 echo "Hello World!"
                 echo "lorem ipsum"
                 echo "dolor sit amet"
+                echo "CI"
+                echo "CI"
+                echo "CI"
             """.trimIndent()
         }
     }
