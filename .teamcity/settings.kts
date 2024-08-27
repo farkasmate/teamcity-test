@@ -1,5 +1,6 @@
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
+import jetbrains.buildServer.configs.kotlin.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.buildSteps.dockerCompose
 import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
@@ -72,6 +73,21 @@ object build : BuildType({
         dockerCompose {
             name = "docker_compose"
             file = "compose.yaml"
+        }
+
+        script {
+            name = "docker_images_shell"
+            scriptContent = """
+                docker images
+            """.trimIndent()
+        }
+
+        dockerCommand {
+            name = "docker_images"
+
+            commandType = other {
+                subCommand = "images"
+            }
         }
     }
 })
