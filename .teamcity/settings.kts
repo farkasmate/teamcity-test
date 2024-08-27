@@ -61,6 +61,7 @@ object build : BuildType({
                 echo "Hello World!"
                 echo "lorem ipsum"
                 echo "dolor sit amet"
+                sleep 5
                 echo "CI"
                 echo "CI"
                 echo "CI"
