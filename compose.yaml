@@ -1,0 +1,7 @@
+services:
+  fortune:
+    build:
+      context: .
+      args:
+        ALPINE_VERSION:
+    network_mode: default

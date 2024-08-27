@@ -67,6 +67,11 @@ object build : BuildType({
                 echo "CI"
             """.trimIndent()
         }
+
+        dockerCompose {
+            name = "docker_compose"
+            file = "compose.yaml"
+        }
     }
 })
 
